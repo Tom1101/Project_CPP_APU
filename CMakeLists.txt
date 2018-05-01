@@ -3,4 +3,4 @@ project(Project_APU)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Project_APU main.cpp)
+add_executable(Project_APU main.cpp adminpanel.cpp medicine-list.cpp medicine.cpp user.cpp customerpanel.cpp)
