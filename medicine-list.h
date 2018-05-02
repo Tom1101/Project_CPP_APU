@@ -13,6 +13,7 @@
 
 
 #include "medicine.h"
+#include "exception.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ public:
     void updateQuantity(medicine me, int quantity);
     void modifyMedicine(medicine me);
     int sumPriceQuantity();
-    string ifExits(int id);
+    void ifExits(int id);
     medicine searchMedicine(int id);
     vector<medicine> searchDOE(int month,int year);
     vector<medicine> getListMedicine();
@@ -37,5 +38,7 @@ public:
 private:
     vector<medicine> list;
 };
+
+
 
 #endif //PROJECT_APU_MEDICINE_LIST_H

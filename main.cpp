@@ -20,8 +20,8 @@ int main() {
         switch(op)
         {
             case 1:{
-                User *customer1 = new Customer();
-                takeUser(customer1);
+                User *customer = new Customer();
+                takeUser(customer);
             }
                 break;
             case 2:{

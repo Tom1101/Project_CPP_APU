@@ -80,15 +80,16 @@ void Customer::check_medicine() {
     int id;
     cout << "Enter The Batch Number Of Medicine:";
     cin >> id;
-    if (id < list_me.getListMedicine().size() + 1) {
+    try{
+        list_me.ifExits(id);
         if (list_me.searchMedicine(id).getQuantity() > 0) {
             cout << "\nThis Medicine is now available at " << list_me.searchMedicine(id).getQuantity() << " units"
                  << endl;
         } else {
             cout << "\n This Medicine is not available at this time";
         };
-    } else {
-        cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+    } catch (CANT_FIND_MEDICINE_EXCEPTION e) {
+        cout << e.what();
     }
 }
 
@@ -96,8 +97,22 @@ void Customer::add_medicine_cart() {
     int id, quantity;
     cout << "Enter The Batch Number of Medicine: ";
     cin >> id;
-    if (id < list_me.getListMedicine().size() + 1) {
-        if (list_cart.ifExits(id) != "exit") {
+    try{
+        list_me.ifExits(id);
+        try {
+            list_cart.ifExits(id);
+            cout << "How many unit of this Medicine: ";
+            cin >> quantity;
+            if (quantity <= list_me.searchMedicine(id).getQuantity()) {
+                me = list_cart.searchMedicine(id);
+                list_cart.updateQuantity(me, quantity);
+                list_me.modifyQuantity(me,quantity);
+                cout << "Update Successful ! Please check your cart" << endl;
+            } else {
+                cout << "\nQuantity not valide ! Please Check Medicine for details" << endl;
+            }
+            cout << endl;
+        } catch (CANT_FIND_MEDICINE_EXCEPTION e){
             cout << "How many unit of this Medicine: ";
             cin >> quantity;
             if (quantity <= list_me.searchMedicine(id).getQuantity()) {
@@ -110,31 +125,20 @@ void Customer::add_medicine_cart() {
                 cout << "\nQuantity not valide ! Please Check Medicine for details" << endl;
             }
             cout << endl;
-        } else {
-            cout << "How many unit of this Medicine: ";
-            cin >> quantity;
-            if (quantity <= list_me.searchMedicine(id).getQuantity()) {
-                me = list_cart.searchMedicine(id);
-                list_cart.updateQuantity(me, quantity);
-                list_me.modifyQuantity(me,quantity);
-                cout << "Update Successful ! Please check your cart" << endl;
-            } else {
-                cout << "\nQuantity not valide ! Please Check Medicine for details" << endl;
-            }
-            cout << endl;
         }
-    } else {
-        cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+    } catch (CANT_FIND_MEDICINE_EXCEPTION e) {
+        cout << e.what();
     }
-
 }
 
 void Customer::delete_medicine_cart() {
     int id, quantity;
     cout << "Enter The Batch Number Of Medicine:";
     cin >> id;
-    if (id < list_me.getListMedicine().size() + 1) {
-        if (list_cart.ifExits(id) == "exit") {
+    try{
+        list_me.ifExits(id);
+        try{
+            list_cart.ifExits(id);
             cout << "How many unit of this Medicine: ";
             cin >> quantity;
             if (quantity < list_cart.searchMedicine(id).getQuantity()) {
@@ -151,11 +155,11 @@ void Customer::delete_medicine_cart() {
                 cout << "\nQuantity not valide ! Please Check Medicine for details" << endl;
             }
             cout << endl;
-        } else {
-            cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+        } catch (CANT_FIND_MEDICINE_EXCEPTION e) {
+            cout << e.what();
         }
-    } else {
-        cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+    } catch (CANT_FIND_MEDICINE_EXCEPTION e) {
+        cout << e.what();
     }
 }
 

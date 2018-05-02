@@ -39,15 +39,14 @@
         }
     };
 
-    string medicine_list::ifExits(int id){
-        string res;
+    void medicine_list::ifExits(int id){
         for( int i = 0; i < list.size(); i++){
             if( list.at(i).returneNO() == id){
-                res = "exit";
+                return;
             }
         }
-        return res;
-    };
+        throw CANT_FIND_MEDICINE_EXCEPTION();
+    }
 
     medicine medicine_list::searchMedicine(int id){
         medicine me;
@@ -96,7 +95,7 @@
     string medicine_list::listCheckout(){
         ostringstream res;
         for(int i = 0; i < list.size(); i++){
-            res << list.at(i).getName() << " : " << list.at(i).getQuantity() << " * " << list.at(i).getPrice() << " = " <<(list.at(i).getQuantity()*list.at(i).getPrice()) << " $" << endl;
+            res << "Batch number " << list.at(i).returneNO() << " : " << list.at(i).getName() << " : " << list.at(i).getQuantity() << " * " << list.at(i).getPrice() << " = " <<(list.at(i).getQuantity()*list.at(i).getPrice()) << " $" << endl;
             cout << endl;
         }
         return res.str();

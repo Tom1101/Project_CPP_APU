@@ -80,7 +80,8 @@
         do {
             cout << "\nEnter Batch Number of Medicine: " << endl;
             cin >> batch;
-            if(list_me.ifExits(batch)  != "exit"){
+            try{
+                list_me.ifExits(batch);
                 me.setBatch(batch);
                 me.create_medicine();
                 ofstream data;
@@ -91,9 +92,8 @@
                 data.close();
                 list_me.resetList();
                 load_medicine();
-            } else {
-                cout << "\nBatch Number has already been used, please check again ! " << endl;
-                break;
+            } catch ( CANT_FIND_MEDICINE_EXCEPTION e) {
+                cout << e.what();
             }
         } while (ch == 'y' || ch == 'Y');
     };
@@ -103,7 +103,8 @@
         int id,quantity;
         cout << "\n\nEnter Batch Number of Medicine for delete: ";
         cin >> id;
-        if (list_me.ifExits(id) =="exit") {
+        try {
+            list_me.ifExits(id);
             cout << "\nMedicine has found ! \n";
             me = list_me.searchMedicine(id);
             cout << "This medicine has: " << me.getQuantity() << " quantities \n";
@@ -138,8 +139,8 @@
                 }
 
             } else cout << "\n Number of quantity is not correct ! \n";
-        } else {
-            cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+        } catch ( CANT_FIND_MEDICINE_EXCEPTION e) {
+            cout << e.what();
         }
     };
 
@@ -148,7 +149,8 @@
         int id;
         cout << "\n\nEnter Batch Number of Medicine for modify: ";
         cin >> id;
-        if(list_me.ifExits(id) =="exit"){
+        try{
+            list_me.ifExits(id);
             cout << "\nMedicine has found ! \n";
             me = list_me.searchMedicine(id);
             cout << "\n\nAre you sure to modify..(y/n)? \n";
@@ -163,8 +165,8 @@
             } else {
                 cout << "\n Ok back to menu ! \n";
             }
-        } else {
-            cout << "\nNot Find Batch Number Match with this Medicine ! \n";
+        } catch ( CANT_FIND_MEDICINE_EXCEPTION e) {
+            cout << e.what();
         }
     };
 
