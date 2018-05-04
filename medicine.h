@@ -11,6 +11,8 @@
 #include <sstream>
 using namespace std;
 
+#include "exception.h"
+
 class medicine{
 private:
     string name;
@@ -32,12 +34,14 @@ public:
     int getPrice();
     void setBatch(int batch);
     void setQuantity(int quantity);
+    void setDOE(string doe, string dom);
+    void setDOM(string dom);
     void updateQuantity(int quantity);
     void deleteQuantity(int quantity);
     string getDoe();
+    string getDOM();
     string getName();
     string toString() const;
-    void report();
 };
 
 #endif //PROJECT_APU_MEDICINE_H

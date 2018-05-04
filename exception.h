@@ -24,4 +24,12 @@ public:
         return "\nQuantity not valide ! Please Check Medicine for details\n";
     }
 };
+
+class ERROR_DATE_EXCEPTION: public exception{
+public:
+    virtual const char* what() const throw()
+    {
+        return "\nDate is invalid! Please Try Again\n";
+    }
+};
 #endif //PROJECT_APU_EXCEPTION_H

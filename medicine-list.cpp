@@ -62,10 +62,15 @@
     vector<medicine> medicine_list::searchDOE(int month,int year){
         vector<medicine> listExp;
         for(int i = 0; i < list.size(); i++){
-            if(stoi(list.at(i).getDoe().substr(3,4)) < year){
-                listExp.push_back(list.at(i));
-            } else if (stoi(list.at(i).getDoe().substr(3,4)) == year && stoi(list.at(i).getDoe().substr(0,2)) < month){
-                listExp.push_back(list.at(i));
+            try {
+                if (stoi(list.at(i).getDoe().substr(3, 4)) < year) {
+                    listExp.push_back(list.at(i));
+                } else if (stoi(list.at(i).getDoe().substr(3, 4)) == year &&
+                           stoi(list.at(i).getDoe().substr(0, 2)) < month) {
+                    listExp.push_back(list.at(i));
+                }
+            }catch (invalid_argument arg){
+                arg.what();
             }
         }
         return listExp;

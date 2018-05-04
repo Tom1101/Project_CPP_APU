@@ -50,7 +50,6 @@
                     cout << "\n";
                     break;
                 case 6:
-                    clear();
                     search_date_expiry();
                     cout << "\n";
                     break;
@@ -82,6 +81,8 @@
             cin >> batch;
             try{
                 list_me.ifExits(batch);
+                cout << "\n\nBacth number has already existed, please check again !\n";
+            } catch ( CANT_FIND_MEDICINE_EXCEPTION e) {
                 me.setBatch(batch);
                 me.create_medicine();
                 ofstream data;
@@ -92,8 +93,6 @@
                 data.close();
                 list_me.resetList();
                 load_medicine();
-            } catch ( CANT_FIND_MEDICINE_EXCEPTION e) {
-                cout << e.what();
             }
         } while (ch == 'y' || ch == 'Y');
     };
@@ -171,14 +170,15 @@
     };
 
     void Admin::search_date_expiry(){
+        string a ="12-1234";
+        cout << a.substr(2,1);
         int month_exp, year_exp;
         cout << "Enter Month (mm):";
         cin >> month_exp;
         cout << "Enter Year (yyyy):";
         cin >> year_exp;
-        for ( int i = 0; i < list_me.searchDOE(month_exp,year_exp).size(); i++){
-           list_me.searchDOE(month_exp,year_exp).at(i).view_medicine();
-        };
+        for (int i = 0; i < list_me.searchDOE(month_exp, year_exp).size(); i++) {
+                list_me.searchDOE(month_exp, year_exp).at(i).view_medicine();
+            };
         cout << endl;
-        //cout << stoi(list_me.getListMedicine().at(3).getDoe().substr(6,4)) << " " << 2016 << endl;
     };
